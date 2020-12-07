@@ -51,7 +51,7 @@ class GameGridViewAdapter(private var interaction: Interaction) : BaseAdapter() 
         }
 
         override fun onHide() {
-            binding.cvCellContainer.visibility = View.INVISIBLE
+            binding.csCell.visibility = View.GONE
         }
 
         override fun onOrientationChanged(isFacedown: Boolean) {
