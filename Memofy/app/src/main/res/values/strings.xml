@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Memofy</string>
-    <string name="start">start</string>
+    <string name="play">Play game</string>
+    <string name="start">Start</string>
     <string name="app_title">MEMOFY</string>
+    <string name="score">Score:</string>
+    <string name="your_score">Your score:</string>
+    <string name="congrats_n_game_over">Congrats! \n Game over</string>
 </resources>

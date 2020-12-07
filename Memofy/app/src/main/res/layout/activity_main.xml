@@ -12,13 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/app_title"
+        android:layout_centerInParent="true"
         android:textSize="26sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true" />
     <Button
         android:id="@+id/btn_main_activity_start"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:background="@color/colorPrimary"
         android:layout_centerInParent="true"
-        android:text="@string/start"/>
+        android:text="@string/play"/>
 </RelativeLayout>

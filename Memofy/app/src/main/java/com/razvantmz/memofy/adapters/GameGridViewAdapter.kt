@@ -8,17 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.razvantmz.memofy.databinding.CellGameBinding
 import com.razvantmz.memofy.models.GameCard
 
-class GameGridViewAdapter() : BaseAdapter() {
+class GameGridViewAdapter(private var interaction: Interaction) : BaseAdapter() {
+
+    interface Interaction
+    {
+        fun onCardSelected(card:GameCard)
+    }
 
     private var items:List<GameCard> = emptyList()
 
-    class GameCellViewHolder(var binding: CellGameBinding) : RecyclerView.ViewHolder(binding.root) {
+    class GameCellViewHolder(var binding: CellGameBinding, val interaction: Interaction) : RecyclerView.ViewHolder(binding.root), GameCard.Interaction
+    {
 
         fun bind(item: GameCard)
         {
             binding.vFace.setBackgroundColor(item.color)
-            binding.vBack.visibility = getBackVisibility(item.isFacedown)
-            binding.vFace.visibility = getFaceVisibility(item.isFacedown)
+            setFacesVisibility(item.isFacedown)
+            binding.cvCellContainer.setOnClickListener(View.OnClickListener {
+               interaction.onCardSelected(item)
+            })
+            item.interaction = this
+        }
+
+        private fun setFacesVisibility(isFacedown: Boolean)
+        {
+            binding.vBack.visibility = getBackVisibility(isFacedown)
+            binding.vFace.visibility = getFaceVisibility(isFacedown)
         }
 
         private fun getFaceVisibility(isFacedown:Boolean):Int
@@ -34,20 +49,23 @@ class GameGridViewAdapter() : BaseAdapter() {
                 return View.VISIBLE
             return  View.INVISIBLE
         }
+
+        override fun onHide() {
+            binding.cvCellContainer.visibility = View.INVISIBLE
+        }
+
+        override fun onOrientationChanged(isFacedown: Boolean) {
+            setFacesVisibility(isFacedown)
+        }
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        if (convertView == null)
-        {
-            val viewHolder = GameGridViewAdapter.GameCellViewHolder(
-                CellGameBinding.inflate(LayoutInflater.from(parent?.context))
-            )
-            viewHolder.bind(getItem(position))
-
-            return viewHolder.itemView;
-        }
-
-        return convertView
+        val viewHolder = GameGridViewAdapter.GameCellViewHolder(
+            CellGameBinding.inflate(LayoutInflater.from(parent?.context)),
+            interaction
+        )
+        viewHolder.bind(getItem(position))
+        return viewHolder.itemView;
     }
 
     override fun getItem(p0: Int): GameCard {

@@ -4,16 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".activities.GameActivity">
+    <RelativeLayout
+        android:id="@+id/rl_score_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/tv_score"
+        android:layout_alignParentStart="true"
+        android:text="@string/score"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="24sp"
+        />
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textSize="24sp"
+            />
+    </RelativeLayout>
     <GridView
         android:id="@+id/gv_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_score_container"
+        android:layout_above="@id/btn_start"
+        android:layout_margin="12dp"
         />
     <Button
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/gv_game"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:background="@color/colorPrimary"
         android:text="@string/start"/>
+    <ViewStub
+        android:id="@+id/vs_game_completed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/layout_game_completed"/>
 </RelativeLayout>
